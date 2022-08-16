@@ -1,0 +1,154 @@
+---
+title: "Technological Diffusion Analysis"
+date: "August 10, 2022"
+# freeze computational output
+# (see https://quarto.org/docs/projects/code-execution.html#freeze)
+freeze: auto
+format:
+  html
+jupyter: python3
+---
+
+```{python}
+import requests
+import re
+import pandas as pd 
+import numpy as np
+import sklearn as sk
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import MinMaxScaler
+import matplotlib
+matplotlib.use('TkAgg')
+import matplotlib.pyplot as plt
+from bs4 import BeautifulSoup
+```
+
+
+This dataset comes from the [National Bureau of Economics](https://data.nber.org/data-appendix/w15319/) via [Tidy Tuesdays](https://github.com/rfordatascience/tidytuesday/tree/master/data/2022/2022-07-19). It involves technological 
+diffusion: the spread of technologies away from 
+their inventors as others adopt them. 
+The unit of analysis is an individual country, 
+and variables measure indicators of technology use, such as number of telephone lines 
+or airline kilometers traveled. 
+The authors used their judgment in defining countries over time, such as treating Russia and the Soviet 
+Union as the same. An explanation is [here](http://www.nber.org/papers/w15319). 
+```{python}
+raw_data = pd.read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-07-19/technology.csv")
+raw_data.head()
+raw_data.shape
+```
+
+The data are in long form, with each row pairing a variable with a value and some metadata. There  are almost half a million rows, so efficiency will become a concern.
+
+```{python}
+pd.set_option('display.max_columns', 10)
+raw_data.iloc[0:6, ]
+```
+
+Countries have ISO codes instead of proper names. 
+Let's fix that.
+
+```{python}
+raw_html = requests.get("https://www.iban.com/country-codes")
+parsed_html = BeautifulSoup(raw_html.content, "html.parser")
+codes2countries = dict(zip(parsed_html.select("td:nth-child(3)"), 
+            parsed_html.select("td:nth-child(1)")))
+
+codes2countries = {re.match(r"^<td>([A-Z]{3}).*", str(code)).group(1) : re.match(r"^<td>([^<]+).*", str(country)).group(1) for code, country in codes2countries.items() }
+```
+
+
+```{python}
+raw_data['country'] = raw_data['iso3c'].map(codes2countries)
+```
+
+There are many variables, so I may as well pick a few to examine.
+```{python}
+len(set(raw_data['label']))
+```
+
+It seems the dataset is full of implicit NA: missing country-year combinations
+```{python}
+raw_data.value_counts(['year', 'country']).value_counts()
+```
+
+Arbitrarily, I pick those related to ships
+```{python}
+ship_data = raw_data.loc[(raw_data['label'].apply(lambda x: "ship" in x))]
+```
+
+
+```{python}
+list(set(ship_data['label']))
+
+ship_data_by_year = ship_data.groupby([ 'year', 'variable' ]).agg( 
+total = pd.NamedAgg(column =  'value', aggfunc = 'sum'),
+average = pd.NamedAgg(column = 'value', aggfunc = 'mean')
+).reindex()
+```
+
+
+```{python}
+ship_counts = ship_data_by_year.loc[(ship_data_by_year.index.get_level_values(1).str.contains('ship_'))]
+ship_counts = ship_counts.reset_index()
+ship_counts['variable'] = pd.Categorical(ship_counts['variable'])
+fig, ax = plt.subplots()
+ship_counts.groupby( 'variable').plot(x = 'year', y =  'total', title = 'Total Ships in Service by Type and Year', kind = 'line', ax = ax)
+ax.legend(sorted([re.sub("ship_", "", ship) for ship in ship_counts['variable'].unique()]))
+plt.show()
+```
+
+Pivoting the columns produces a lot of `NaN`, as 
+we'd expect from these variables in a dataset stretching back to the 1950s - no one collected data on air transport back then, of course.
+```{python}
+labels = [ 
+    'Air transport, passengers carried',
+    'Gross output of electric energy (TWH)',
+    'Patent applications, residents',
+    'Steel production in thousand metric tons',
+    'Passenger cars (BTS)'
+]
+variables = raw_data.loc[(raw_data['label'].isin(labels)), 'variable'].unique()
+data_pivoted = raw_data.loc[raw_data['variable'].isin(variables)].pivot(values = 'value', columns = 'variable', index = ['country', 'year']).reset_index().fillna(0)
+```
+
+The coefficients are hard to interpret because the variables are on totally different scales.
+```{python}
+fit = LinearRegression().fit(data_pivoted[['elecprod', 'patents', 'steel_production', 'vehicle_car_bts']], data_pivoted['aviation_pass'])
+fit.coef_
+```
+
+Let's fix that. Now each coefficient is the estimated average change in standard deviations of $Y$ given an increase of one standard deviation in $X_i$. That makes electricity production the strongest predictor, which makes sense.
+The intercept is surprisingly large, given that it mathematically should be 0.
+
+```{python}
+data_pivoted = pd.DataFrame(MinMaxScaler().fit_transform(data_pivoted[variables]), columns = variables)
+fit = LinearRegression().fit(data_pivoted[['elecprod', 'patents', 'steel_production', 'vehicle_car_bts']], data_pivoted['aviation_pass'])
+fit.coef_
+fit.intercept_
+```
+
+I'll conclude with a plot of fertilizer use per irrigated land area by country
+```{python}
+fertilizer_data = raw_data.loc[( raw_data['label'].isin(['Aggregate kg of fertilizer consumed', 'Area equipped to provide water to crops' ])) & (raw_data['year'] >= 2015)].pivot(index = ['year', 'country'], columns = 'variable', values = 'value') 
+fertilizer_data = fertilizer_data[~(fertilizer_data['fert_total'].isnull() | fertilizer_data['irrigatedarea'].isnull())]
+fertilizer_data['fertilizer_per_area'] = fertilizer_data['fert_total'] / fertilizer_data['irrigatedarea']
+fertilizer_data = fertilizer_data.reset_index()
+```
+
+
+```{python}
+country_averages = fertilizer_data[['country', 'year', 'fertilizer_per_area']].groupby(['country'], as_index = False).agg({ 'fertilizer_per_area' : ['mean'] }).reset_index()
+country_averages.columns = ['variable', 'country', 'fertilizer_per_area']
+del country_averages['variable']
+
+top_10 = sorted(country_averages['fertilizer_per_area'])[-10:]
+others_combined = country_averages.loc[~( country_averages['fertilizer_per_area'].isin(top_10) )][ 'fertilizer_per_area' ].mean()
+plot_data = country_averages.loc[( country_averages['fertilizer_per_area'].isin(top_10))]
+plot_data = pd.concat([plot_data, pd.DataFrame({'variable' : [ np.NaN ], 'country' : [ 'All others' ] , 'fertilizer_per_area' : [ others_combined ]})]).reset_index()
+plot_data.index = plot_data['country']
+plot_data['country'][plot_data['country'].apply(lambda x: "United Kingdom" in x)] = "United Kingdom"
+plot_data.plot(kind = 'pie', x = 'country', y = 'fertilizer_per_area', xlabel = 'Country', ylabel = 'Fertilizer used per land area').legend(loc  = 'best')
+plt.legend(loc = 'lower center', bbox_to_anchor = (1.0, 0.4))
+plt.show()
+```

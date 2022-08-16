@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.587">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2022-08-10">
+
+<title>Technological Diffusion Analysis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="analysis_files/libs/clipboard/clipboard.min.js"></script>
+<script src="analysis_files/libs/quarto-html/quarto.js"></script>
+<script src="analysis_files/libs/quarto-html/popper.min.js"></script>
+<script src="analysis_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="analysis_files/libs/quarto-html/anchor.min.js"></script>
+<link href="analysis_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="analysis_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="analysis_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="analysis_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="analysis_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Technological Diffusion Analysis</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 10, 2022</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sklearn <span class="im">as</span> sk</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> MinMaxScaler</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>matplotlib.use(<span class="st">'TkAgg'</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> bs4 <span class="im">import</span> BeautifulSoup</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This dataset comes from the <a href="https://data.nber.org/data-appendix/w15319/">National Bureau of Economics</a> via <a href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2022/2022-07-19">Tidy Tuesdays</a>. It involves technological diffusion: the spread of technologies away from their inventors as others adopt them. The unit of analysis is an individual country, and variables measure indicators of technology use, such as number of telephone lines or airline kilometers traveled. The authors used their judgment in defining countries over time, such as treating Russia and the Soviet Union as the same. An explanation is <a href="http://www.nber.org/papers/w15319">here</a>.</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>raw_data <span class="op">=</span> pd.read_csv(<span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-07-19/technology.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>raw_data.head()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>raw_data.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="27">
+<pre><code>(491636, 7)</code></pre>
+</div>
+</div>
+<p>The data are in long form, with each row pairing a variable with a value and some metadata. There are almost half a million rows, so efficiency will become a concern.</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_columns'</span>, <span class="dv">10</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>raw_data.iloc[<span class="dv">0</span>:<span class="dv">6</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="28">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>variable</th>
+      <th>label</th>
+      <th>iso3c</th>
+      <th>year</th>
+      <th>group</th>
+      <th>category</th>
+      <th>value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>BCG</td>
+      <td>% children who received a BCG immunization</td>
+      <td>AFG</td>
+      <td>1982</td>
+      <td>Consumption</td>
+      <td>Vaccines</td>
+      <td>10.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>BCG</td>
+      <td>% children who received a BCG immunization</td>
+      <td>AFG</td>
+      <td>1983</td>
+      <td>Consumption</td>
+      <td>Vaccines</td>
+      <td>10.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>BCG</td>
+      <td>% children who received a BCG immunization</td>
+      <td>AFG</td>
+      <td>1984</td>
+      <td>Consumption</td>
+      <td>Vaccines</td>
+      <td>11.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>BCG</td>
+      <td>% children who received a BCG immunization</td>
+      <td>AFG</td>
+      <td>1985</td>
+      <td>Consumption</td>
+      <td>Vaccines</td>
+      <td>17.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>BCG</td>
+      <td>% children who received a BCG immunization</td>
+      <td>AFG</td>
+      <td>1986</td>
+      <td>Consumption</td>
+      <td>Vaccines</td>
+      <td>18.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>BCG</td>
+      <td>% children who received a BCG immunization</td>
+      <td>AFG</td>
+      <td>1987</td>
+      <td>Consumption</td>
+      <td>Vaccines</td>
+      <td>27.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Countries have ISO codes instead of proper names. Let’s fix that.</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>raw_html <span class="op">=</span> requests.get(<span class="st">"https://www.iban.com/country-codes"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>parsed_html <span class="op">=</span> BeautifulSoup(raw_html.content, <span class="st">"html.parser"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>codes2countries <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(parsed_html.select(<span class="st">"td:nth-child(3)"</span>), </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>            parsed_html.select(<span class="st">"td:nth-child(1)"</span>)))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>codes2countries <span class="op">=</span> {re.match(<span class="vs">r"^&lt;td&gt;([A-Z]</span><span class="sc">{3}</span><span class="vs">).*"</span>, <span class="bu">str</span>(code)).group(<span class="dv">1</span>) : re.match(<span class="vs">r"^&lt;td&gt;([^&lt;]+).*"</span>, <span class="bu">str</span>(country)).group(<span class="dv">1</span>) <span class="cf">for</span> code, country <span class="kw">in</span> codes2countries.items() }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="29">
+<pre><code>{'AFG': 'Afghanistan',
+ 'ALA': 'Åland Islands',
+ 'ALB': 'Albania',
+ 'DZA': 'Algeria',
+ 'ASM': 'American Samoa',
+ 'AND': 'Andorra',
+ 'AGO': 'Angola',
+ 'AIA': 'Anguilla',
+ 'ATA': 'Antarctica',
+ 'ATG': 'Antigua and Barbuda',
+ 'ARG': 'Argentina',
+ 'ARM': 'Armenia',
+ 'ABW': 'Aruba',
+ 'AUS': 'Australia',
+ 'AUT': 'Austria',
+ 'AZE': 'Azerbaijan',
+ 'BHS': 'Bahamas (the)',
+ 'BHR': 'Bahrain',
+ 'BGD': 'Bangladesh',
+ 'BRB': 'Barbados',
+ 'BLR': 'Belarus',
+ 'BEL': 'Belgium',
+ 'BLZ': 'Belize',
+ 'BEN': 'Benin',
+ 'BMU': 'Bermuda',
+ 'BTN': 'Bhutan',
+ 'BOL': 'Bolivia (Plurinational State of)',
+ 'BES': 'Bonaire, Sint Eustatius and Saba',
+ 'BIH': 'Bosnia and Herzegovina',
+ 'BWA': 'Botswana',
+ 'BVT': 'Bouvet Island',
+ 'BRA': 'Brazil',
+ 'IOT': 'British Indian Ocean Territory (the)',
+ 'BRN': 'Brunei Darussalam',
+ 'BGR': 'Bulgaria',
+ 'BFA': 'Burkina Faso',
+ 'BDI': 'Burundi',
+ 'CPV': 'Cabo Verde',
+ 'KHM': 'Cambodia',
+ 'CMR': 'Cameroon',
+ 'CAN': 'Canada',
+ 'CYM': 'Cayman Islands (the)',
+ 'CAF': 'Central African Republic (the)',
+ 'TCD': 'Chad',
+ 'CHL': 'Chile',
+ 'CHN': 'China',
+ 'CXR': 'Christmas Island',
+ 'CCK': 'Cocos (Keeling) Islands (the)',
+ 'COL': 'Colombia',
+ 'COM': 'Comoros (the)',
+ 'COD': 'Congo (the Democratic Republic of the)',
+ 'COG': 'Congo (the)',
+ 'COK': 'Cook Islands (the)',
+ 'CRI': 'Costa Rica',
+ 'CIV': "Côte d'Ivoire",
+ 'HRV': 'Croatia',
+ 'CUB': 'Cuba',
+ 'CUW': 'Curaçao',
+ 'CYP': 'Cyprus',
+ 'CZE': 'Czechia',
+ 'DNK': 'Denmark',
+ 'DJI': 'Djibouti',
+ 'DMA': 'Dominica',
+ 'DOM': 'Dominican Republic (the)',
+ 'ECU': 'Ecuador',
+ 'EGY': 'Egypt',
+ 'SLV': 'El Salvador',
+ 'GNQ': 'Equatorial Guinea',
+ 'ERI': 'Eritrea',
+ 'EST': 'Estonia',
+ 'SWZ': 'Eswatini',
+ 'ETH': 'Ethiopia',
+ 'FLK': 'Falkland Islands (the) [Malvinas]',
+ 'FRO': 'Faroe Islands (the)',
+ 'FJI': 'Fiji',
+ 'FIN': 'Finland',
+ 'FRA': 'France',
+ 'GUF': 'French Guiana',
+ 'PYF': 'French Polynesia',
+ 'ATF': 'French Southern Territories (the)',
+ 'GAB': 'Gabon',
+ 'GMB': 'Gambia (the)',
+ 'GEO': 'Georgia',
+ 'DEU': 'Germany',
+ 'GHA': 'Ghana',
+ 'GIB': 'Gibraltar',
+ 'GRC': 'Greece',
+ 'GRL': 'Greenland',
+ 'GRD': 'Grenada',
+ 'GLP': 'Guadeloupe',
+ 'GUM': 'Guam',
+ 'GTM': 'Guatemala',
+ 'GGY': 'Guernsey',
+ 'GIN': 'Guinea',
+ 'GNB': 'Guinea-Bissau',
+ 'GUY': 'Guyana',
+ 'HTI': 'Haiti',
+ 'HMD': 'Heard Island and McDonald Islands',
+ 'VAT': 'Holy See (the)',
+ 'HND': 'Honduras',
+ 'HKG': 'Hong Kong',
+ 'HUN': 'Hungary',
+ 'ISL': 'Iceland',
+ 'IND': 'India',
+ 'IDN': 'Indonesia',
+ 'IRN': 'Iran (Islamic Republic of)',
+ 'IRQ': 'Iraq',
+ 'IRL': 'Ireland',
+ 'IMN': 'Isle of Man',
+ 'ISR': 'Israel',
+ 'ITA': 'Italy',
+ 'JAM': 'Jamaica',
+ 'JPN': 'Japan',
+ 'JEY': 'Jersey',
+ 'JOR': 'Jordan',
+ 'KAZ': 'Kazakhstan',
+ 'KEN': 'Kenya',
+ 'KIR': 'Kiribati',
+ 'PRK': "Korea (the Democratic People's Republic of)",
+ 'KOR': 'Korea (the Republic of)',
+ 'KWT': 'Kuwait',
+ 'KGZ': 'Kyrgyzstan',
+ 'LAO': "Lao People's Democratic Republic (the)",
+ 'LVA': 'Latvia',
+ 'LBN': 'Lebanon',
+ 'LSO': 'Lesotho',
+ 'LBR': 'Liberia',
+ 'LBY': 'Libya',
+ 'LIE': 'Liechtenstein',
+ 'LTU': 'Lithuania',
+ 'LUX': 'Luxembourg',
+ 'MAC': 'Macao',
+ 'MKD': 'Republic of North Macedonia',
+ 'MDG': 'Madagascar',
+ 'MWI': 'Malawi',
+ 'MYS': 'Malaysia',
+ 'MDV': 'Maldives',
+ 'MLI': 'Mali',
+ 'MLT': 'Malta',
+ 'MHL': 'Marshall Islands (the)',
+ 'MTQ': 'Martinique',
+ 'MRT': 'Mauritania',
+ 'MUS': 'Mauritius',
+ 'MYT': 'Mayotte',
+ 'MEX': 'Mexico',
+ 'FSM': 'Micronesia (Federated States of)',
+ 'MDA': 'Moldova (the Republic of)',
+ 'MCO': 'Monaco',
+ 'MNG': 'Mongolia',
+ 'MNE': 'Montenegro',
+ 'MSR': 'Montserrat',
+ 'MAR': 'Morocco',
+ 'MOZ': 'Mozambique',
+ 'MMR': 'Myanmar',
+ 'NAM': 'Namibia',
+ 'NRU': 'Nauru',
+ 'NPL': 'Nepal',
+ 'NLD': 'Netherlands (the)',
+ 'NCL': 'New Caledonia',
+ 'NZL': 'New Zealand',
+ 'NIC': 'Nicaragua',
+ 'NER': 'Niger (the)',
+ 'NGA': 'Nigeria',
+ 'NIU': 'Niue',
+ 'NFK': 'Norfolk Island',
+ 'MNP': 'Northern Mariana Islands (the)',
+ 'NOR': 'Norway',
+ 'OMN': 'Oman',
+ 'PAK': 'Pakistan',
+ 'PLW': 'Palau',
+ 'PSE': 'Palestine, State of',
+ 'PAN': 'Panama',
+ 'PNG': 'Papua New Guinea',
+ 'PRY': 'Paraguay',
+ 'PER': 'Peru',
+ 'PHL': 'Philippines (the)',
+ 'PCN': 'Pitcairn',
+ 'POL': 'Poland',
+ 'PRT': 'Portugal',
+ 'PRI': 'Puerto Rico',
+ 'QAT': 'Qatar',
+ 'REU': 'Réunion',
+ 'ROU': 'Romania',
+ 'RUS': 'Russian Federation (the)',
+ 'RWA': 'Rwanda',
+ 'BLM': 'Saint Barthélemy',
+ 'SHN': 'Saint Helena, Ascension and Tristan da Cunha',
+ 'KNA': 'Saint Kitts and Nevis',
+ 'LCA': 'Saint Lucia',
+ 'MAF': 'Saint Martin (French part)',
+ 'SPM': 'Saint Pierre and Miquelon',
+ 'VCT': 'Saint Vincent and the Grenadines',
+ 'WSM': 'Samoa',
+ 'SMR': 'San Marino',
+ 'STP': 'Sao Tome and Principe',
+ 'SAU': 'Saudi Arabia',
+ 'SEN': 'Senegal',
+ 'SRB': 'Serbia',
+ 'SYC': 'Seychelles',
+ 'SLE': 'Sierra Leone',
+ 'SGP': 'Singapore',
+ 'SXM': 'Sint Maarten (Dutch part)',
+ 'SVK': 'Slovakia',
+ 'SVN': 'Slovenia',
+ 'SLB': 'Solomon Islands',
+ 'SOM': 'Somalia',
+ 'ZAF': 'South Africa',
+ 'SGS': 'South Georgia and the South Sandwich Islands',
+ 'SSD': 'South Sudan',
+ 'ESP': 'Spain',
+ 'LKA': 'Sri Lanka',
+ 'SDN': 'Sudan (the)',
+ 'SUR': 'Suriname',
+ 'SJM': 'Svalbard and Jan Mayen',
+ 'SWE': 'Sweden',
+ 'CHE': 'Switzerland',
+ 'SYR': 'Syrian Arab Republic',
+ 'TWN': 'Taiwan (Province of China)',
+ 'TJK': 'Tajikistan',
+ 'TZA': 'Tanzania, United Republic of',
+ 'THA': 'Thailand',
+ 'TLS': 'Timor-Leste',
+ 'TGO': 'Togo',
+ 'TKL': 'Tokelau',
+ 'TON': 'Tonga',
+ 'TTO': 'Trinidad and Tobago',
+ 'TUN': 'Tunisia',
+ 'TUR': 'Turkey',
+ 'TKM': 'Turkmenistan',
+ 'TCA': 'Turks and Caicos Islands (the)',
+ 'TUV': 'Tuvalu',
+ 'UGA': 'Uganda',
+ 'UKR': 'Ukraine',
+ 'ARE': 'United Arab Emirates (the)',
+ 'GBR': 'United Kingdom of Great Britain and Northern Ireland (the)',
+ 'UMI': 'United States Minor Outlying Islands (the)',
+ 'USA': 'United States of America (the)',
+ 'URY': 'Uruguay',
+ 'UZB': 'Uzbekistan',
+ 'VUT': 'Vanuatu',
+ 'VEN': 'Venezuela (Bolivarian Republic of)',
+ 'VNM': 'Viet Nam',
+ 'VGB': 'Virgin Islands (British)',
+ 'VIR': 'Virgin Islands (U.S.)',
+ 'WLF': 'Wallis and Futuna',
+ 'ESH': 'Western Sahara',
+ 'YEM': 'Yemen',
+ 'ZMB': 'Zambia',
+ 'ZWE': 'Zimbabwe'}</code></pre>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>raw_data[<span class="st">'country'</span>] <span class="op">=</span> raw_data[<span class="st">'iso3c'</span>].<span class="bu">map</span>(codes2countries)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>There are many variables, so I may as well pick a few to examine.</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(<span class="bu">set</span>(raw_data[<span class="st">'label'</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="31">
+<pre><code>194</code></pre>
+</div>
+</div>
+<p>It seems the dataset is full of implicit NA: missing country-year combinations</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>raw_data.value_counts([<span class="st">'year'</span>, <span class="st">'country'</span>]).value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="32">
+<pre><code>1      5321
+2      1923
+3      1570
+5      1208
+4      1084
+       ... 
+115       1
+118       1
+121       1
+122       1
+128       1
+Length: 118, dtype: int64</code></pre>
+</div>
+</div>
+<p>Arbitrarily, I pick those related to ships</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ship_data <span class="op">=</span> raw_data.loc[(raw_data[<span class="st">'label'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">"ship"</span> <span class="kw">in</span> x))]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="33">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>variable</th>
+      <th>label</th>
+      <th>iso3c</th>
+      <th>year</th>
+      <th>group</th>
+      <th>category</th>
+      <th>value</th>
+      <th>country</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>402179</th>
+      <td>ship_motor</td>
+      <td>Motor ship</td>
+      <td>BEL</td>
+      <td>1924</td>
+      <td>Production</td>
+      <td>Transport</td>
+      <td>4.0</td>
+      <td>Belgium</td>
+    </tr>
+    <tr>
+      <th>402180</th>
+      <td>ship_motor</td>
+      <td>Motor ship</td>
+      <td>BEL</td>
+      <td>1925</td>
+      <td>Production</td>
+      <td>Transport</td>
+      <td>5.0</td>
+      <td>Belgium</td>
+    </tr>
+    <tr>
+      <th>402181</th>
+      <td>ship_motor</td>
+      <td>Motor ship</td>
+      <td>BEL</td>
+      <td>1926</td>
+      <td>Production</td>
+      <td>Transport</td>
+      <td>6.0</td>
+      <td>Belgium</td>
+    </tr>
+    <tr>
+      <th>402182</th>
+      <td>ship_motor</td>
+      <td>Motor ship</td>
+      <td>BEL</td>
+      <td>1927</td>
+      <td>Production</td>
+      <td>Transport</td>
+      <td>6.0</td>
+      <td>Belgium</td>
+    </tr>
+    <tr>
+      <th>402183</th>
+      <td>ship_motor</td>
+      <td>Motor ship</td>
+      <td>BEL</td>
+      <td>1928</td>
+      <td>Production</td>
+      <td>Transport</td>
+      <td>8.0</td>
+      <td>Belgium</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>421148</th>
+      <td>shipton_steammotor</td>
+      <td>Tonnage of steam and motor ships</td>
+      <td>ZAF</td>
+      <td>1989</td>
+      <td>Production</td>
+      <td>Transport</td>
+      <td>486.0</td>
+      <td>South Africa</td>
+    </tr>
+    <tr>
+      <th>421149</th>
+      <td>shipton_steammotor</td>
+      <td>Tonnage of steam and motor ships</td>
+      <td>ZAF</td>
+      <td>1990</td>
+      <td>Production</td>
+      <td>Transport</td>
+      <td>397.0</td>
+      <td>South Africa</td>
+    </tr>
+    <tr>
+      <th>421150</th>
+      <td>shipton_steammotor</td>
+      <td>Tonnage of steam and motor ships</td>
+      <td>ZAF</td>
+      <td>1991</td>
+      <td>Production</td>
+      <td>Transport</td>
+      <td>352.0</td>
+      <td>South Africa</td>
+    </tr>
+    <tr>
+      <th>421151</th>
+      <td>shipton_steammotor</td>
+      <td>Tonnage of steam and motor ships</td>
+      <td>ZAF</td>
+      <td>1992</td>
+      <td>Production</td>
+      <td>Transport</td>
+      <td>340.0</td>
+      <td>South Africa</td>
+    </tr>
+    <tr>
+      <th>421152</th>
+      <td>shipton_steammotor</td>
+      <td>Tonnage of steam and motor ships</td>
+      <td>ZAF</td>
+      <td>1993</td>
+      <td>Production</td>
+      <td>Transport</td>
+      <td>337.0</td>
+      <td>South Africa</td>
+    </tr>
+  </tbody>
+</table>
+<p>18974 rows × 8 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">list</span>(<span class="bu">set</span>(ship_data[<span class="st">'label'</span>]))</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>ship_data_by_year <span class="op">=</span> ship_data.groupby([ <span class="st">'year'</span>, <span class="st">'variable'</span> ]).agg( </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>total <span class="op">=</span> pd.NamedAgg(column <span class="op">=</span>  <span class="st">'value'</span>, aggfunc <span class="op">=</span> <span class="st">'sum'</span>),</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>average <span class="op">=</span> pd.NamedAgg(column <span class="op">=</span> <span class="st">'value'</span>, aggfunc <span class="op">=</span> <span class="st">'mean'</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>).reindex()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="34">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th>total</th>
+      <th>average</th>
+    </tr>
+    <tr>
+      <th>year</th>
+      <th>variable</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="5" valign="top">1820</th>
+      <th>ship_sail</th>
+      <td>21585.0</td>
+      <td>21585.0</td>
+    </tr>
+    <tr>
+      <th>ship_steam</th>
+      <td>35.0</td>
+      <td>35.0</td>
+    </tr>
+    <tr>
+      <th>shipton_all</th>
+      <td>3325.0</td>
+      <td>1662.5</td>
+    </tr>
+    <tr>
+      <th>shipton_sail</th>
+      <td>3299.0</td>
+      <td>1649.5</td>
+    </tr>
+    <tr>
+      <th>shipton_steam</th>
+      <td>26.0</td>
+      <td>13.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th rowspan="5" valign="top">1998</th>
+      <th>ship_steammotor</th>
+      <td>762.0</td>
+      <td>381.0</td>
+    </tr>
+    <tr>
+      <th>shipton_all</th>
+      <td>135873.0</td>
+      <td>13587.3</td>
+    </tr>
+    <tr>
+      <th>shipton_motor</th>
+      <td>5687.0</td>
+      <td>5687.0</td>
+    </tr>
+    <tr>
+      <th>shipton_steam</th>
+      <td>25225.0</td>
+      <td>25225.0</td>
+    </tr>
+    <tr>
+      <th>shipton_steammotor</th>
+      <td>5317.0</td>
+      <td>1063.4</td>
+    </tr>
+  </tbody>
+</table>
+<p>1323 rows × 2 columns</p>
+</div>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ship_counts <span class="op">=</span> ship_data_by_year.loc[(ship_data_by_year.index.get_level_values(<span class="dv">1</span>).<span class="bu">str</span>.contains(<span class="st">'ship_'</span>))]</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>ship_counts <span class="op">=</span> ship_counts.reset_index()</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>ship_counts[<span class="st">'variable'</span>] <span class="op">=</span> pd.Categorical(ship_counts[<span class="st">'variable'</span>])</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>ship_counts.groupby( <span class="st">'variable'</span>).plot(x <span class="op">=</span> <span class="st">'year'</span>, y <span class="op">=</span>  <span class="st">'total'</span>, title <span class="op">=</span> <span class="st">'Total Ships in Service by Type and Year'</span>, kind <span class="op">=</span> <span class="st">'line'</span>, ax <span class="op">=</span> ax)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>ax.legend(<span class="bu">sorted</span>([re.sub(<span class="st">"ship_"</span>, <span class="st">""</span>, ship) <span class="cf">for</span> ship <span class="kw">in</span> ship_counts[<span class="st">'variable'</span>].unique()]))</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Pivoting the columns produces a lot of <code>NaN</code>, as we’d expect from these variables in a dataset stretching back to the 1950s - no one collected data on air transport back then, of course.</p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> [ </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Air transport, passengers carried'</span>,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Gross output of electric energy (TWH)'</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Patent applications, residents'</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Steel production in thousand metric tons'</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Passenger cars (BTS)'</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>variables <span class="op">=</span> raw_data.loc[(raw_data[<span class="st">'label'</span>].isin(labels)), <span class="st">'variable'</span>].unique()</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>data_pivoted <span class="op">=</span> raw_data.loc[raw_data[<span class="st">'variable'</span>].isin(variables)].pivot(values <span class="op">=</span> <span class="st">'value'</span>, columns <span class="op">=</span> <span class="st">'variable'</span>, index <span class="op">=</span> [<span class="st">'country'</span>, <span class="st">'year'</span>]).reset_index().fillna(<span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="36">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th>variable</th>
+      <th>country</th>
+      <th>year</th>
+      <th>aviation_pass</th>
+      <th>elecprod</th>
+      <th>patents</th>
+      <th>steel_production</th>
+      <th>vehicle_car_bts</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>1913</td>
+      <td>0.000</td>
+      <td>1.11000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0</td>
+      <td>1919</td>
+      <td>0.000</td>
+      <td>1.35000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0</td>
+      <td>1920</td>
+      <td>0.000</td>
+      <td>1.59000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0</td>
+      <td>1921</td>
+      <td>0.000</td>
+      <td>1.62000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0</td>
+      <td>1922</td>
+      <td>0.000</td>
+      <td>1.58000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>13169</th>
+      <td>Zimbabwe</td>
+      <td>2016</td>
+      <td>378803.000</td>
+      <td>6.82588</td>
+      <td>8.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>13170</th>
+      <td>Zimbabwe</td>
+      <td>2017</td>
+      <td>282539.000</td>
+      <td>7.30956</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>13171</th>
+      <td>Zimbabwe</td>
+      <td>2018</td>
+      <td>282539.000</td>
+      <td>9.13302</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>13172</th>
+      <td>Zimbabwe</td>
+      <td>2019</td>
+      <td>0.000</td>
+      <td>9.04610</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>13173</th>
+      <td>Zimbabwe</td>
+      <td>2020</td>
+      <td>324226.537</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>13174 rows × 7 columns</p>
+</div>
+</div>
+</div>
+<p>The coefficients are hard to interpret because the variables are on totally different scales.</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fit <span class="op">=</span> LinearRegression().fit(data_pivoted[[<span class="st">'elecprod'</span>, <span class="st">'patents'</span>, <span class="st">'steel_production'</span>, <span class="st">'vehicle_car_bts'</span>]], data_pivoted[<span class="st">'aviation_pass'</span>])</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>fit.coef_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="37">
+<pre><code>array([ 1.42683343e+05,  2.51208350e+02, -7.42244632e+02,  1.33086354e+00])</code></pre>
+</div>
+</div>
+<p>Let’s fix that. Now each coefficient is the estimated average change in standard deviations of <span class="math inline">\(Y\)</span> given an increase of one standard deviation in <span class="math inline">\(X_i\)</span>. That makes electricity production the strongest predictor, which makes sense. The intercept is surprisingly large, given that it mathematically should be 0.</p>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>data_pivoted <span class="op">=</span> pd.DataFrame(MinMaxScaler().fit_transform(data_pivoted[variables]), columns <span class="op">=</span> variables)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>fit <span class="op">=</span> LinearRegression().fit(data_pivoted[[<span class="st">'elecprod'</span>, <span class="st">'patents'</span>, <span class="st">'steel_production'</span>, <span class="st">'vehicle_car_bts'</span>]], data_pivoted[<span class="st">'aviation_pass'</span>])</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>fit.coef_</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>fit.intercept_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="38">
+<pre><code>-0.0005269009164801585</code></pre>
+</div>
+</div>
+<p>I’ll conclude with a plot of fertilizer use per irrigated land area by country</p>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>fertilizer_data <span class="op">=</span> raw_data.loc[( raw_data[<span class="st">'label'</span>].isin([<span class="st">'Aggregate kg of fertilizer consumed'</span>, <span class="st">'Area equipped to provide water to crops'</span> ])) <span class="op">&amp;</span> (raw_data[<span class="st">'year'</span>] <span class="op">&gt;=</span> <span class="dv">2015</span>)].pivot(index <span class="op">=</span> [<span class="st">'year'</span>, <span class="st">'country'</span>], columns <span class="op">=</span> <span class="st">'variable'</span>, values <span class="op">=</span> <span class="st">'value'</span>) </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>fertilizer_data <span class="op">=</span> fertilizer_data[<span class="op">~</span>(fertilizer_data[<span class="st">'fert_total'</span>].isnull() <span class="op">|</span> fertilizer_data[<span class="st">'irrigatedarea'</span>].isnull())]</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>fertilizer_data[<span class="st">'fertilizer_per_area'</span>] <span class="op">=</span> fertilizer_data[<span class="st">'fert_total'</span>] <span class="op">/</span> fertilizer_data[<span class="st">'irrigatedarea'</span>]</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>fertilizer_data <span class="op">=</span> fertilizer_data.reset_index()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="39">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th>variable</th>
+      <th>year</th>
+      <th>country</th>
+      <th>fert_total</th>
+      <th>irrigatedarea</th>
+      <th>fertilizer_per_area</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2015</td>
+      <td>Afghanistan</td>
+      <td>3.123239e+07</td>
+      <td>2165.0000</td>
+      <td>1.442605e+04</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2015</td>
+      <td>Albania</td>
+      <td>6.632700e+07</td>
+      <td>158.0000</td>
+      <td>4.197911e+05</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2015</td>
+      <td>Algeria</td>
+      <td>1.756000e+08</td>
+      <td>1215.2610</td>
+      <td>1.444957e+05</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2015</td>
+      <td>Armenia</td>
+      <td>6.503950e+07</td>
+      <td>154.7000</td>
+      <td>4.204234e+05</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2015</td>
+      <td>Australia</td>
+      <td>2.470711e+09</td>
+      <td>2149.1000</td>
+      <td>1.149649e+06</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>166</th>
+      <td>2018</td>
+      <td>Ukraine</td>
+      <td>2.150638e+09</td>
+      <td>399.0000</td>
+      <td>5.390070e+06</td>
+    </tr>
+    <tr>
+      <th>167</th>
+      <td>2018</td>
+      <td>United Arab Emirates (the)</td>
+      <td>3.152829e+07</td>
+      <td>81.7000</td>
+      <td>3.859032e+05</td>
+    </tr>
+    <tr>
+      <th>168</th>
+      <td>2018</td>
+      <td>United Kingdom of Great Britain and Northern I...</td>
+      <td>1.483000e+09</td>
+      <td>71.8161</td>
+      <td>2.064997e+07</td>
+    </tr>
+    <tr>
+      <th>169</th>
+      <td>2018</td>
+      <td>Uruguay</td>
+      <td>4.156594e+08</td>
+      <td>223.0000</td>
+      <td>1.863943e+06</td>
+    </tr>
+    <tr>
+      <th>170</th>
+      <td>2018</td>
+      <td>Uzbekistan</td>
+      <td>1.023894e+09</td>
+      <td>3650.0000</td>
+      <td>2.805189e+05</td>
+    </tr>
+  </tbody>
+</table>
+<p>171 rows × 5 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>country_averages <span class="op">=</span> fertilizer_data[[<span class="st">'country'</span>, <span class="st">'year'</span>, <span class="st">'fertilizer_per_area'</span>]].groupby([<span class="st">'country'</span>], as_index <span class="op">=</span> <span class="va">False</span>).agg({ <span class="st">'fertilizer_per_area'</span> : [<span class="st">'mean'</span>] }).reset_index()</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>country_averages.columns <span class="op">=</span> [<span class="st">'variable'</span>, <span class="st">'country'</span>, <span class="st">'fertilizer_per_area'</span>]</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> country_averages[<span class="st">'variable'</span>]</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>top_10 <span class="op">=</span> <span class="bu">sorted</span>(country_averages[<span class="st">'fertilizer_per_area'</span>])[<span class="op">-</span><span class="dv">10</span>:]</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>others_combined <span class="op">=</span> country_averages.loc[<span class="op">~</span>( country_averages[<span class="st">'fertilizer_per_area'</span>].isin(top_10) )][ <span class="st">'fertilizer_per_area'</span> ].mean()</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>plot_data <span class="op">=</span> country_averages.loc[( country_averages[<span class="st">'fertilizer_per_area'</span>].isin(top_10))]</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>plot_data <span class="op">=</span> pd.concat([plot_data, pd.DataFrame({<span class="st">'variable'</span> : [ np.NaN ], <span class="st">'country'</span> : [ <span class="st">'All others'</span> ] , <span class="st">'fertilizer_per_area'</span> : [ others_combined ]})]).reset_index()</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>plot_data.index <span class="op">=</span> plot_data[<span class="st">'country'</span>]</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>plot_data[<span class="st">'country'</span>][plot_data[<span class="st">'country'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">"United Kingdom"</span> <span class="kw">in</span> x)] <span class="op">=</span> <span class="st">"United Kingdom"</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>plot_data.plot(kind <span class="op">=</span> <span class="st">'pie'</span>, x <span class="op">=</span> <span class="st">'country'</span>, y <span class="op">=</span> <span class="st">'fertilizer_per_area'</span>, xlabel <span class="op">=</span> <span class="st">'Country'</span>, ylabel <span class="op">=</span> <span class="st">'Fertilizer used per land area'</span>).legend(loc  <span class="op">=</span> <span class="st">'best'</span>)</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>plt.legend(loc <span class="op">=</span> <span class="st">'lower center'</span>, bbox_to_anchor <span class="op">=</span> (<span class="fl">1.0</span>, <span class="fl">0.4</span>))</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  plot_data['country'][plot_data['country'].apply(lambda x: "United Kingdom" in x)] = "United Kingdom"</code></pre>
+</div>
+</div>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
