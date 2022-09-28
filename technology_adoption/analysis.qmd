@@ -33,6 +33,7 @@ or airline kilometers traveled.
 The authors used their judgment in defining countries over time, such as treating Russia and the Soviet 
 Union as the same. An explanation is [here](http://www.nber.org/papers/w15319). 
 ```{python}
+%matplotlib inline
 raw_data = pd.read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-07-19/technology.csv")
 raw_data.head()
 raw_data.shape

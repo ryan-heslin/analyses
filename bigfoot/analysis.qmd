@@ -27,6 +27,7 @@ For this report, I'll be working with Tidy Tuesday [data](https://github.com/rfo
 Now, I don't think the evidence supports Bigfoot's existence any more strongly than the Easter Bunny's, but the data should be interesting regardless.
 
 ```{python}
+%matplotlib inline
 raw_data = pd.read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-09-13/bigfoot.csv")
 raw_data.head() 
 raw_data.shape
