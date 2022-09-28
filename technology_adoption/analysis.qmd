@@ -33,7 +33,6 @@ or airline kilometers traveled.
 The authors used their judgment in defining countries over time, such as treating Russia and the Soviet 
 Union as the same. An explanation is [here](http://www.nber.org/papers/w15319). 
 ```{python}
-%matplotlib inline
 raw_data = pd.read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-07-19/technology.csv")
 raw_data.head()
 raw_data.shape
@@ -92,6 +91,7 @@ average = pd.NamedAgg(column = 'value', aggfunc = 'mean')
 A plot shows the numbers of different types of ships over time. The replacement 
 of sail by steam power is obvious.
 ```{python}
+%matplotlib inline
 ship_counts = ship_data_by_year.loc[(ship_data_by_year.index.get_level_values(1).str.contains('ship_'))]
 ship_counts = ship_counts.reset_index()
 ship_counts['variable'] = pd.Categorical(ship_counts['variable'])
@@ -142,6 +142,7 @@ fertilizer_data = fertilizer_data.reset_index()
 A pie chart is arguably misleading here, since the per-country values don't 
 add up to anything significant. 
 ```{python}
+%matplotlib inline
 country_averages = fertilizer_data[['country', 'year', 'fertilizer_per_area']].groupby(['country'], as_index = False).agg({ 'fertilizer_per_area' : ['mean'] }).reset_index()
 country_averages.columns = ['variable', 'country', 'fertilizer_per_area']
 del country_averages['variable']

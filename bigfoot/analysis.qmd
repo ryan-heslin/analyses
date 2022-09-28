@@ -86,13 +86,14 @@ X_train["classification"].groupby([y_train]).value_counts()
 A simple longitude-latitude plot shows a surprising number of sightings on the East Coast. Bigfoot is usually thought of escaping detection in the sparsely settled West.
 But if we assume all Bigfoot sightings are false or mistaken, we would expect sighting density to correlate with population. That would explain the eastern sightings.
 ```{python}
-# see 
+%matplotlib inline
 X_train.plot(x = "longitude", y = "latitude", kind = "scatter")
 plt.show()
 ```
 
 Several of the variables have normal-ish distributions.
 ```{python}
+% matplotlib inline
 def plot_density(var): 
     X_train[var].plot.kde()
     plt.title(var)
