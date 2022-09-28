@@ -1,12 +1,12 @@
 ---
 title: "Technological Diffusion Analysis"
 date: "August 10, 2022"
-# freeze computational output
-# (see https://quarto.org/docs/projects/code-execution.html#freeze)
 freeze: auto
 format:
   html
 jupyter: python3
+execute: 
+  enabled: true
 ---
 
 ```{python}
@@ -45,7 +45,7 @@ pd.set_option('display.max_columns', 10)
 raw_data.iloc[0:6, ]
 ```
 
-Countries have ISO codes instead of proper names. 
+Countries have ISO codes instead of names. 
 Let's fix that.
 
 ```{python}
@@ -72,12 +72,13 @@ It seems the dataset is full of implicit NA: missing country-year combinations
 raw_data.value_counts(['year', 'country']).value_counts()
 ```
 
-Arbitrarily, I pick those related to ships
+Arbitrarily, I pick variables related to ships.
 ```{python}
 ship_data = raw_data.loc[(raw_data['label'].apply(lambda x: "ship" in x))]
 ```
 
 
+I compute yearly totals and averages for each variable.
 ```{python}
 list(set(ship_data['label']))
 
@@ -87,7 +88,8 @@ average = pd.NamedAgg(column = 'value', aggfunc = 'mean')
 ).reindex()
 ```
 
-
+A plot shows the numbers of different types of ships over time. The replacement 
+of sail by steam power is obvious.
 ```{python}
 ship_counts = ship_data_by_year.loc[(ship_data_by_year.index.get_level_values(1).str.contains('ship_'))]
 ship_counts = ship_counts.reset_index()
@@ -99,7 +101,7 @@ plt.show()
 ```
 
 Pivoting the columns produces a lot of `NaN`, as 
-we'd expect from these variables in a dataset stretching back to the 1950s - no one collected data on air transport back then, of course.
+we'd expect from these variables in a dataset stretching back to the 1950s - no one collected data on air transport back then, obviously.
 ```{python}
 labels = [ 
     'Air transport, passengers carried',
@@ -136,7 +138,8 @@ fertilizer_data['fertilizer_per_area'] = fertilizer_data['fert_total'] / fertili
 fertilizer_data = fertilizer_data.reset_index()
 ```
 
-
+A pie chart is arguably misleading here, since the per-country values don't 
+add up to anything significant. 
 ```{python}
 country_averages = fertilizer_data[['country', 'year', 'fertilizer_per_area']].groupby(['country'], as_index = False).agg({ 'fertilizer_per_area' : ['mean'] }).reset_index()
 country_averages.columns = ['variable', 'country', 'fertilizer_per_area']
